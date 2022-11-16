@@ -209,9 +209,9 @@ def main():
         saver.restore(session, args.checkpoint_in)
 
         output_graph_def = tf.graph_util.convert_variables_to_constants(
-            session, tf.get_default_graph().as_graph_def(),
+            session, tf.compat.v1.get_default_graph().as_graph_def(),
             [features.name.split(":")[0]])
-        with tf.gfile.GFile(args.graphdef_out, "wb") as file_handle:
+        with tf.io.gfile.GFile(args.graphdef_out, "wb") as file_handle:
             file_handle.write(output_graph_def.SerializeToString())
 
 
